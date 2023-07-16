@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="stylesheet" href="styles.css" />  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Documentation Page</title>
+</head>
+
+<body>
+  <main id="main-doc">
+    <nav id="navbar">
+      <header class="title">ReactJS and ES6</header>
+      <a class="nav-link" href="#introduction">Introduction</a>
+      <a class="nav-link" href="#prerequisites">Prerequisites</a>
+      <a class="nav-link" href="#getting_started">Getting Started</a>
+      <a class="nav-link" href="#jsx">JSX</a>
+      <a class="nav-link" href="#components">Components</a>
+      <a class="nav-link" href="#lifecycle_methods">Lifecycle Methods</a>
+      <a class="nav-link" href="#states_and_props">States and Props</a>
+      <a class="nav-link" href="#es6">ES6</a>
+      <a class="nav-link" href="#conclusion">Conclusion</a>
+      <a class="nav-link" href="#references">References</a>
+    </nav>
+    <section id="introduction" class="main-section">
+      <header>Introduction</header>
+      <p>ReactJS is a JavaScript library that is used to build user interfaces(UI). It was created and open sourced by Facebook, releasing to the public on May of 2013. It opened to much skepticism but has since become one of the most widely used and popular JavaScript frontend libraries.</p>
+      <p>ReactJS is known for its component-based approach for creating UI, with these component's reusability making it ideal for scaling large, single page web applications. At a glance, the benefits of React are:</p>
+      <ul>
+        <li>Reusable Components: build a component and use it anywhere that it is needed on your application.</li>
+        <li>One-direction data flow: ReactJS uses downward data binding to ensure that changes of child structures don’t affect their parents, thus making code stable.</li>
+        <li>Virtual DOM: an abstract copy of the actual DOM which is constantly checked for any differences and only updates that portion of the interface and no other parts. Thus, REACT-ing to the DOM changes and increasing your apps speed. </li>
+      </ul>
+    </section>
+    <section id="prerequisites" class="main-section">
+      <header>Prerequisites</header>
+      <p>This guide assumes you have the following basic background:</p>
+      <ul>
+        <li>Knowledge of HTML (HyperText Markup Language) and the DOM.</li>
+        <li>Programming and JavaScript fundamentals (for/while loops, variables, conditionals, Javascript quirks such as "this").</li>
+        <li>ES6 (we will go over this topic in this guide, however).</li>
+      </ul>
+    </section>
+    <section id="getting_started" class="main-section">
+      <header>Getting Started</header>
+      <p>For a quick and easy no-manual-config route to starting a React project, <a href="https://github.com/facebook/create-react-app" target="_blank" referrerpolicy="no-referrer">Create React App</a> is a beginner friendly environment for developing single-page applications.</p>
+      <p>First, make sure you have the latest versions of Node and NPM installed. Then, on your terminal run:</p>
+      <code>  npx create-react-app my-app
+  cd my-app
+  npm start </code>
+      <p>This command creates a folder with React and all configurations installed and prepared for you, with Babel and webpack working under the hood. Once you are finished working on your application, simple run:</p>
+      <code>  npm run build</code>
+      <p>This command will create an optimized build of your app in the build folder for you to deploy.</p>
+    </section>
+    <section id="jsx" class="main-section">
+      <header>JSX</header>
+      <p>JSX, JavaScript eXtension, is Javascript that <em>looks</em> like HTML. It is not technically required to be used in React nor is it the only way to write your transpiled HTML output, but it does provide and elegant and more readable solution.</p>
+      <p>An example of JSX in React is shown below, creating a simple React component that renders "Hello World":</p>
+      <code>  class HelloWorld extends React.Component {
+    render() {
+      return(
+        &lt;h1>Hello World&lt;/h1>
+      );
+    }       
+  }  </code>
+      <p>The above code renders to the DOM "Hello World" as an h1 tag. You probably didn't need me to tell you that, however, as the JSX makes that apparent.</p> 
+      <p>Is it just HTML then? Not exactly.</p>
+      <p>JSX, as mentioned earlier, is Javascript that <em>looks</em> like HTML. So, when the above code is ran, it is translated into regular JavaScript and looks like this.</p>
+      <code>  class HelloWorld extends React.Component {
+  render() {
+    return (
+      React.createElement(
+        'h1',
+        {className: 'large'},
+        'Hello World'
+      )
+    );
+  }
+}  </code>
+      <p>The truth reveals itself! JSX turns into a React element which is a virtual representation of the HTML elements this component outputs. This is where the Virtual DOM benefits kick in and any differences in the Virtual and Real DOM is checked. The DOM, then, only updates the portion of the interface that is different and no other parts.</p>
+      <p>You can create React components without JSX like the example above if you choose, but JSX does make developing components a <em>lot</em> easier.</p>
+      <p>There are a few things to think about when writing JSX in a React Component. The first of which is that React can only return and render one parent element. This means code like this:</p>
+      <code>  class Example extends React.Component {
+    render() {
+      return (
+        &lt;h1>Hello&lt;/h1>
+        &lt;h2>World&lt;/h2>
+      );    
+    }
+  }  </code>
+      <p>Would be incorrect and result in an error. To fix this, all you need to do is wrap the JSX in an enclosing, parent tag, like so:</p>
+      <code>  class Example extends React.Component {
+    render() {
+      return (
+        &lt;div>
+          &lt;h1>Hello&lt;/h1>
+          &lt;h2>World&lt;/h2>
+        &lt;/div>
+      );    
+    }
+  }  </code>
+      <p>Wrap it in a div or any other relevant tags.</p>
+    </section>
+    <section id="components" class="main-section">
+      <header>Components</header>
+      <p>React is known for its component-based approach of creating UI and is what makes React <em>React</em>.</p>
+      <p>There are two kinds of components: functional component and class components. Both have the same purpose, outputs JSX to become the UI, but have different ways of getting there.</p>
+      <p>To start, functional components are simple as they are just JavaScript functions that takes in props (Don't worry, we'll go more in depth into that soon) and returns some JSX.</p>
+      <code>  function Greetings(props){
+    return (
+      &lt;p>Hello {props.name}&lt;/p>
+    );
+  }
+  
+  // The following code is how React hooks onto the HTML file to render the JSX,
+  // usually to a div with an id of "root" or "app"
+  ReactDOM.render(
+    &lt;Greetings name="Edgar" />,
+    document.getElementById('app')
+  )  </code>
+      <p>The above output would be "Hello Edgar."</p>
+      <p>Now, we will demonstrate the reusability part of React based components. Say, you create an App component and decided to put not one Greetings component but <strong>3.</strong></p>
+      <code>  function Greetings(props){
+    return (
+      &lt;p>Hello {props.name}&lt;/p>
+    );
+  }
+       
+  function App() {
+    return (
+      &lt;div>
+        &lt;Greetings name="Edgar" />
+        &lt;Greetings name="Carol" />
+        &lt;Greetings name="Tony" />
+      &lt;/div>
+    );
+  }
+
+  ReactDOM.render(
+    &lt;App />,
+    document.getElementById('root')
+  );  </code>
+      <p>The App component above outputs the Greeting component 3 times. Each component is rendered with a different name being displayed since we passed different names as props, like so:</p>
+      <code><h1>Hello Edgar</h1><h1>Hello Carol</h1><h1>Hello Tony</h1></code>
+    </section>
+    <section id="lifecycle_methods" class="main-section">
+      <header>Lifecycle Methods</header>
+      <p>Class components are the other type of component and, just like functional components, they return and render JSX. The major difference comes with the additional functionality that comes with creating a class component: <strong>Lifecycle Methods!</strong></p>
+      <p>First, we will show how a class component looks like, defining it with ES6 syntax.</p>
+      <code>  class Greetings extends React.Component {
+    render() {
+      return (
+        &lt;h1>Hello {this.props.name}</h1>
+      );
+    }
+  
+  ReactDOM.render(
+    &lt;Greetings name="Edgar" />,
+    document.getElementById('root')
+  );  </code>
+    <p>The above component is exactly the same to the functional "Greetings" component in that they both return the exact same JSX. Note that the above component has a method called <strong>Render</strong> which does just that: renders the JSX to the DOM. And this is the most common as well as only required Lifecycle Method in a React class component.</p>
+    <p>Lifecycle Methods are overridable methods that control the "life" of your component - from life, to when it renders and updates, and to death. When you create a class component, you extend and inherit from "React.Component" which is a React class that comes with a lot of methods called Lifecycle Methods.</p>
+    <p>There are a lot of Lifecycle methods but you won't be using all of them and there will be some you use more than others. Some common methods, ordered from "birth" to "death" are:</p>
+    <ul>
+      <li>constructor</li>
+      <li>render</li>
+      <li>componentDidMount</li>
+      <li>shouldComponentUpdate</li>
+      <li>componentWillUnmount</li>
+    </ul>
+    <p><strong>constructor</strong></p>
+    <p>When initializing you component, you can set props, set the initial state, and bind other methods.</p>
+    <code>  constructor(props){
+    super(props);
+    this.state = {
+      data: "Some data"
+    }
+    
+    this.handleChange = this.handleChange.bind(this);
+  }  </code>
+    <p>The <strong>constructor</strong> takes in props as an argument. If you want to use the prop within your constructor, then you add props to super like super(props). If not, you can set it as super(). Then, you set state with any data you will be using in your component. State is a JavaScript object so you format the data as such. Finally, you can bind methods in the constructor to the components "this" keyword.</p>
+    <p><strong>render</strong></p>
+    <p>Render, in the class component's life cycle, is called whenever the app renders and returns JSX.</p>
+    <p><strong>componentDidMount</strong></p>
+    <p>This function is called when the component has mounted (after the first render occurs.)</p>
+    <code>  componentDidMount() {
+    fetch("https://example.com/api")
+      .then(res => res.json())
+      .then(data => this.setState({ data }));
+      .catch(error => {
+        throw(error);
+      })
+  }  </code>
+    <p>The above code is a fetch request. <strong>componentDidMount</strong> is the perfect place to make a request with Fetch API, axios, or AJAX as the request may not be completed by the time of the first render. Thus, calling these requests after the first render ensures that there is a component to update.</p>
+    <p>In addition to retrieving data from an API, you can also set event listeners, integrate other JavaScript frameworks and libraries, or set a setTimeOut function.</p>
+    <p><strong>shouldComponentUpdate</strong></p>
+    <p>Firstly, this lifecycle method takes in nextProps, nextState, nextContext as arguments and should always return a boolean value.</p>
+    <p>By default, the component will re-render whenever there is a difference between the Virtual DOM and the Real DOM. And thus, by default, <strong>shouldComponentUpdate</strong> is always set to true.</p>
+    <p>This method is used to optimize performance by making it so that the component is only re-rendered under certain differences between the Virtual and Real DOM</p>
+    <code> shouldComponentUpdate(nextProps) {
+  return this.props.data !== nextProps.data;
+}  </code>
+    <p>The above example makes it so that the Component should only update if the props data is changed.</p>
+    <p><strong>componentWillUnmount</strong></p>
+    <p>This lifecycle method occurs at the "death" of the component- just before the component is removed from the DOM. You can perform any clean up in this final function, usually in the form of ending even listeners, ending any times, and cancelling network requests.</p>
+    <code>  componentWillUnmount() {
+    clearInterval(this.interval);    
+  }  </code>
+    </section>
+    <section id="states_and_props" class="main-section">
+      <header>States and Props</header>
+      <p>There has been a lot of talk about props and states and for a lot of beginners these two concepts may seem confusing.</p>
+      <p>So <em>what</em> is props and states?</p>
+      <p>Both props and state are JavaScript objects that store data to be rendered onto components. Also note that changes in props and state trigger a re-render in the component. They are very similar but they do have their differences.</p>
+      <p>Props, short for properties, are passed between components. You could set props from a parent component and pass it down to its children. Children components of this parent cannot pass props "up" back to the parent component but they could pass the props down to their own children. And this demonstrates React's downward data binding which makes the library's code more stable.</p>
+      <p>Some examples of props being passed from parent down to children and then used by the children component are:</p>
+      <code>  // Class component example  
+  class Parent extends React.Component {
+    render() {
+      return {
+        &lt;div>
+          &lt;h1>I am the Parent&lt;/h1>
+          &lt;Child name="Natasha" />
+        &lt;/div>
+      }    
+    }      
+  }
+  
+  class Child extends React.Component {
+    render() {
+      return(
+        &lt;p>I am the child and my name is {this.props.name}&lt;/p>  
+      );    
+    }      
+  }  
+  
+  // Functional component example
+  function Child(props) {
+    return (
+      &lt;h1>Hi I am {props.name}&lt;/>    
+    );
+  }
+  
+  ReactDOM.render(
+    &lt;Child name="Bruce" />,
+    document.getElementById('root')
+  );</code>
+      <p>State handles and stores data like props but it does so differently. To start, state's scope is only in the component it is initialized in and it shouldn't be passed between components. Also, you don't need to have state in your component. This is known as a stateless component. However, if you do decide to have state, you initialize it in the constructor method.</p>
+      <code>  class Example extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        name: "Clint"
+      }
+    }
+        
+    render() {
+      return(
+        &lt;h1>Hello, my name is {this.state.name}&lt;/h1>
+      );
+    }
+  }  </code>
+      <p>The above example is a class component that renders to the DOM "Hello, my name is Edgar." Notice that the state is first defined in the constructor. Then, in the render method you insert the name defined in state with "{this.state.name}" rather than using a prop.</p>
+      <p>Lastly, Props can not be changed but State can be changed within a component. However, remember you can only change state by using the "setState" function. Any other way and React won't recognize this change and will not re-render the component.</p>
+    </section>
+    <section id="es6" class="main-section">
+      <header>ES6</header>
+      <p>Short for ECMAScript, ES6 is a standard that modern JavaScript is based upon. New JavaScript features were built and, although they are still not fully supported yet, it is well accepted that ES6 will gain widespread use across all browsers in the near future. Even looking at modern JavaScript code, you are more likely than not to have already seen a few ES6 features.</p>
+      <p>React uses a lot of ES6 features and, thus, the best way to experience the full developmental potential of this amazing library is to learn ES6. I'll keep you up to speed by going through a few of the features that ES6 has to offer.</p>
+      <p><strong>Variables</strong></p>
+      <p>Traditionally, JavaScript variables are declared by using the "var" keywords. The "var" variable could be reassigned and it is probably the way you were taught to define a JavaScript variable. However, in React, you should declare variables with the "let" keyword.</p>
+      <p>The reason for this boils down to scoping. "Let" is essentially the same as "var" but the difference you should know is that "var" is scoped globally within the entire function that it was declared in. Meanwhile, "let" is scoped within the <em>block</em> of code that that variable was declared in and not the entire function.</p>
+      <p>You may have to re-read that explanation a few time to wrap your head around that concept but just take away that you should declared variables with "let" instead of "var" in React.</p>
+      <p>"const" is another way to declared variables in JavaScript ES6. It has the same scope as the "let" variable declaration but their difference is that "const" stands for "constant." Meaning, that you can not reassign variables declared with the "const" keyword.</p>
+      <p><strong>Arrow Functions</strong></p>
+      <p>ES6 has, also, introduced to us a new and concise way to declare called <strong>Arrow Functions</strong>. Also known as "fat arrow" functions, this feature was taken from CoffeeScript, are anonymous, and change the way the "this" keyword is binded. If you know other programming languages, they work much like Lambda functions.</p>
+      <p>Let's compare a plain JavaScript function to an arrow function:</p>
+      <code>  // Plain function
+  function addNums(a, b) {
+    return a + b;      
+  }
+        
+  // Arrow Function
+  let addNums = (a, b) => { a + b };  </code>
+      <p>Both of these functions take in two arguments and then returns their sum. The arrow function is a much more concise 1 line, however. "let addNums" is the ES6 "let" variable declaration of the function. Notice how we no longer have to use the "function" keyword and instead we are storing addNums to a variable. Next, we have "(a, b)" which are the two arguments we are passing. After that, we use the "=>" token and then wrap in curly brackets what we want this function to do. In this case, we want to return the sum. Notice how we do not need the "return" keyword. This is because "return" as well as "function" are implied. We finish off with a semicolon.</p>
+      <p>Other common ways to structure an arrow function include:</p>
+      <code>  // If there are no variables, you just pass an empty "()" as an argument
+  let example = () => { console.log("Hello World") };
+        
+  // If there is one variable, you do not need to have a "()" around your argument
+  let multiplySelf = x = { x * x };
+
+  // Finally, let's try to make the first arrow function more concise
+  // If only one expression is present, you do not need the curley brackets
+  let addNums = (a, b) => a + b;  </code>
+      <p>The arrow function is great for creating concise and readable code. You can, also, use the arrow function to bind methods in class components. So now you can bind methods in the constructor and outside of the constructor with arrow functions.</p>
+      <code>  onClick = () => {
+    console.log("I have been clicked")
+  }  </code>
+      <p><strong>Three Dots</strong></p>
+      <p>"..." is a new feature in ES6 that make JavaScript developers' lives easier. They are used as "Rest" parameters and "Spread" operators.</p>
+      <p>"Rest" parameters are used in arguments of functions. When used, they take the rest of the parameters passed into an argument and collect them into an array</p>
+      <code>  function myLikes(firstLike, secondLike, ...restOfLikes) {
+    // Expected output: "I like apples and bananas"
+    console.log("I like " + firstLike + " and " + secondLike);
+    
+    // Expected output: " and berries"
+    console.log(" and " + restOfLikes[0]);
+    // Expected output: " and cherries"
+    console.log(" and " + restOfLikes[1]);
+  }
+  
+  myLikes("apples", "bananas", "berries", "cherries");  </code>
+      <p>The benefit of rest parameters is that we can pass an indefinite amount of arguments into a function and it will be saved, in a clean and concise manner, into an array.</p>
+      <p>"Spread" operators is another use of the "..." feature. It is essentially the opposite of the "Rest" parameters as it takes an array and <em>spreads</em> it into zero or more parameters.</p>
+      <code>  function addNums(a, b, c) {
+    return a + b + c;      
+  }
+  
+  let numbers = [1, 2, 3];
+  
+  console.log(addNums(...numbers));
+        // Expected output: 6  </code>
+      <p>The <strong>Three Dots</strong> are used to make developing easier as it streamlines through a verbose coding patterns that achieve the same result as just using the "Rest" parameters or "Spread" operator. There are, also, many great use cases for <strong>Three Dots</strong> in React which we will go through in future updates of this tutorial.</p>
+    </section>
+
+    <section id="references" class="main-section">
+      <header>References</header>
+     <article>
+          <ul>
+            <li>
+              All the documentation in this page is taken from
+              <a
+                href="https://react.dev/"
+                target="_blank"
+                >React</a
+              >
+            </li>
+          </ul>
+        </article>
+    </section>
+  </main>
+</body>
