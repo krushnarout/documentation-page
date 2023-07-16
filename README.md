@@ -17,7 +17,8 @@ The project is structured as follows:
 
 Here's a screenshot of the Technical Documentation Page:
 
-![React Documentation Page]()
+![React Documentation Page](https://github.com/krushnarout/Technical-Documentation-Page/assets/129386740/ef3b90cc-6d02-4543-8a50-1fa73e79609e)
+
 
 
 ## Resources
