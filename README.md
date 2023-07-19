@@ -4,7 +4,7 @@ This repository contains my completed FreeCodeCamp Technical Documentation Page 
 
 ## Project Overview
 
-The Technical Documentation Page is a web page that provides documentation of React. I designed this different from freecodecamp to showcase my understanding of HTML, CSS, and responsive web design principles.
+The Technical Documentation Page is a web page that provides documentation for React. I designed this differently from FreeCodeCamp and also added a dark mode toggle button to showcase my understanding of HTML, CSS, and responsive web design principles.
 
 ## Project Structure
 
