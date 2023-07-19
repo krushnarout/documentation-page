@@ -15,10 +15,13 @@ The project is structured as follows:
 
 ## Preview
 
-Here's a screenshot of the Technical Documentation Page:
+Here's a screenshot of the Technical Documentation Page without dark mode:
 
-![React Documentation Page](https://github.com/krushnarout/Technical-Documentation-Page/assets/129386740/ef3b90cc-6d02-4543-8a50-1fa73e79609e)
+![React Documentation Page](https://github.com/krushnarout/React-Documentation-Page/assets/129386740/7c0cb2c1-1287-4791-bd9c-af2d2a6a2c17)
 
+Here's a screenshot of the Technical Documentation Page with dark mode:
+
+![React Documentation Page](https://github.com/krushnarout/React-Documentation-Page/assets/129386740/7229d069-1075-4495-a403-90a415690c97)
 
 
 ## Resources
