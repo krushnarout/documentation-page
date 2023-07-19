@@ -76,7 +76,8 @@ body.dark-mode {
 }
 
 .dark-mode-switch {
-  position: fixed;
+  position: relative;
+  flex-direction: row-reverse;
   top: 20px;
   right: 20px;
   display: flex;
@@ -89,8 +90,8 @@ body.dark-mode {
 
 .dark-mode-switch label {
   display: inline-block;
-  width: 42px;
-  height: 22px;
+  width: 41px;
+  height: 21px;
   background-color: #ccc;
   border-radius: 20px;
   position: relative;
