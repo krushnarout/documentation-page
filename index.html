@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <title>React Documentation Page</title>
 </head>
 
@@ -24,13 +24,14 @@
       <a class="nav-link" href="#conclusion">Conclusion</a>
       <a class="nav-link" href="#references">References</a>
     </nav>
+    
     <div class="dark-mode-switch">
+      <div class="fas fa-moon"></div>
       <input type="checkbox" id="dark-mode-toggle" />
-      <label for="dark-mode-toggle">
-        <i class="fas fa-moon"></i>
-        <i class="fas fa-sun"></i>
-      </label>
+      <label for="dark-mode-toggle"></label>
+      <div class="fas fa-sun"></div>
     </div>
+
     <section id="introduction" class="main-section">
       <header>Introduction</header>
       <p>ReactJS is a JavaScript library that is used to build user interfaces(UI). It was created and open sourced by
@@ -433,6 +434,7 @@
     </section>
   </main>
 </body>
+
 <script>
   const darkModeToggle = document.getElementById('dark-mode-toggle');
   const body = document.body;
